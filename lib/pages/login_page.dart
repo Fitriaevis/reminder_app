@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:suplis_app/auth/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,6 +12,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final AuthService _authService =
+      AuthService(); // Replace with actual AuthService implementation
 
   @override
   Widget build(BuildContext context) {
@@ -96,11 +99,30 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        // Process the login
+                        final success = await _authService.login(
+                          _emailController.text,
+                          _passwordController.text,
+                        );
+                        if (success) {
+                          Navigator.pushReplacementNamed(context, '/home');
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Invalid credentials')),
+                          );
+                        }
                       }
                     },
+                  ),
+                  const SizedBox(height: 16.0),
+                  Center(
+                    child: TextButton(
+                      child: const Text('Sudah punya akun? Daftar sekarang'),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/register');
+                      },
+                    ),
                   ),
                 ],
               ),

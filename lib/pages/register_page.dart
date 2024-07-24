@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:suplis_app/auth/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -12,6 +13,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final AuthService _authService =
+      AuthService(); // Ganti dengan implementasi AuthService
 
   @override
   Widget build(BuildContext context) {
@@ -113,9 +116,20 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     child: const Text('Register'),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        
+                        final success = await _authService.register(
+                          _usernameController.text,
+                          _emailController.text,
+                          _passwordController.text,
+                        );
+                        if (success) {
+                          Navigator.pushReplacementNamed(context, '/home');
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Email already in use')),
+                          );
+                        }
                       }
                     },
                   ),
