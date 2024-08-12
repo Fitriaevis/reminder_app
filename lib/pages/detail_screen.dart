@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:suplis_app/models/data_pelanggan_model.dart';
 
 class DetailScreen extends StatelessWidget {
-  final Map<String, String> data;
+  final DataPelanggan data;
 
   DetailScreen({required this.data});
 
@@ -9,7 +10,7 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail Data Petugas'),
+        title: Text('Detail Data Pelanggan'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -35,32 +36,32 @@ class DetailScreen extends StatelessWidget {
                   children: [
                     ListTile(
                       leading: Icon(Icons.badge),
-                      title: Text('ID'),
-                      subtitle: Text(data['id']!),
+                      title: Text('No Agenda Pesta'),
+                      subtitle: Text(data.noAgendaPesta),
                     ),
                     Divider(),
                     ListTile(
                       leading: Icon(Icons.person),
                       title: Text('Nama'),
-                      subtitle: Text(data['nama']!),
+                      subtitle: Text(data.nama),
                     ),
                     Divider(),
                     ListTile(
                       leading: Icon(Icons.home),
                       title: Text('Alamat'),
-                      subtitle: Text(data['alamat']!),
+                      subtitle: Text(data.alamat),
+                    ),
+                    Divider(),
+                    ListTile(
+                      leading: Icon(Icons.bolt),
+                      title: Text('Daya'),
+                      subtitle: Text(data.daya),
                     ),
                     Divider(),
                     ListTile(
                       leading: Icon(Icons.date_range),
-                      title: Text('Tanggal Mulai'),
-                      subtitle: Text(data['tanggalMulai']!),
-                    ),
-                    Divider(),
-                    ListTile(
-                      leading: Icon(Icons.date_range),
-                      title: Text('Tanggal Berakhir'),
-                      subtitle: Text(data['tanggalBerakhir']!),
+                      title: Text('Tanggal Selesai'),
+                      subtitle: Text(data.tglSelesai),
                     ),
                   ],
                 ),

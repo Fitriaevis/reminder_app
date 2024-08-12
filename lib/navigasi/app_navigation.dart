@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; // Import provider
 import 'package:suplis_app/navigasi/theme_provider.dart';
-import 'package:suplis_app/pages/list_data_petugas.dart';
+import 'package:suplis_app/pages/list_data_pelanggan.dart';
 import 'package:suplis_app/pages/list_notifikasi.dart';
 import 'package:suplis_app/pages/profile_petugas.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart'; // Import CurvedNavigationBar
@@ -15,7 +15,7 @@ class _AppNavigationState extends State<AppNavigation> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    ListDataPetugas(),
+    ListDataPelanggan(),
     ListNotifikasi(),
     ProfilePetugas(),
   ];

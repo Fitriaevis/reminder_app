@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:suplis_app/auth/auth_service.dart'; // Import AuthService
 import 'package:suplis_app/pages/login_page.dart';
 import 'package:suplis_app/pages/profile_petugas.dart';
-import 'package:suplis_app/pages/list_data_petugas.dart';
+import 'package:suplis_app/pages/list_data_pelanggan.dart';
 import 'package:suplis_app/pages/list_notifikasi.dart';
 import 'package:suplis_app/pages/register_page.dart';
 import 'package:suplis_app/navigasi/theme_provider.dart';
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           '/register': (context) => const RegisterPage(),
           '/home': (context) => AppNavigation(),
           '/profile': (context) => ProfilePetugas(),
-          '/listData': (context) => ListDataPetugas(),
+          '/listData': (context) => ListDataPelanggan(),
           '/listNotifikasi': (context) => ListNotifikasi(),
         },
       ),

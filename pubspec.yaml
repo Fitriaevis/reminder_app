@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^1.2.2
 
   cupertino_icons: ^1.0.6
   sqflite: ^2.0.0+4 # For SQLite database

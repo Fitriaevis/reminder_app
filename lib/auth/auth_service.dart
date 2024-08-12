@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Ensure you have this import
 import 'package:suplis_app/database/database_helper.dart';
-import 'package:suplis_app/model/user_model.dart';
+import 'package:suplis_app/models/user_model.dart';
 
 class AuthService {
   final DatabaseHelper _dbHelper = DatabaseHelper();
