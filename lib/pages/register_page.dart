@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:suplis_app/auth/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -13,8 +13,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final AuthService _authService =
-      AuthService(); // Ganti dengan implementasi AuthService
+  final FirebaseAuth _auth = FirebaseAuth.instance; // FirebaseAuth instance
 
   @override
   Widget build(BuildContext context) {
@@ -118,16 +117,26 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: const Text('Register'),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        final success = await _authService.register(
-                          _usernameController.text,
-                          _emailController.text,
-                          _passwordController.text,
-                        );
-                        if (success) {
+                        try {
+                          // Firebase Auth registration
+                          UserCredential userCredential =
+                              await _auth.createUserWithEmailAndPassword(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          );
+                          // If registration is successful, navigate to home
                           Navigator.pushReplacementNamed(context, '/home');
-                        } else {
+                        } on FirebaseAuthException catch (e) {
+                          String message = 'An error occurred';
+                          if (e.code == 'email-already-in-use') {
+                            message =
+                                'The email address is already in use by another account.';
+                          } else if (e.code == 'weak-password') {
+                            message = 'The password provided is too weak.';
+                          }
+                          // Show error message
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Email already in use')),
+                            SnackBar(content: Text(message)),
                           );
                         }
                       }

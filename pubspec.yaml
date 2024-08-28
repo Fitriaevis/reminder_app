@@ -18,6 +18,13 @@ dependencies:
   shared_preferences: ^2.0.15
   provider: ^6.0.0 # For state management
   curved_navigation_bar: ^1.0.0 # For curved navigation bar (if using this package)
+  firebase_core: ^3.4.0
+  firebase_auth: ^5.2.0
+  cloud_firestore: ^5.3.0
+  fluttertoast: ^8.2.8
+  font_awesome_flutter: ^10.7.0
+  intl: ^0.19.0
+  rxdart: ^0.28.0
 
 dev_dependencies:
   flutter_test:

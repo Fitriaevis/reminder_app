@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:suplis_app/auth/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,8 +12,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final AuthService _authService =
-      AuthService(); // Replace with actual AuthService implementation
+  final FirebaseAuth _auth = FirebaseAuth.instance; // FirebaseAuth instance
 
   @override
   Widget build(BuildContext context) {
@@ -101,15 +100,22 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        final success = await _authService.login(
-                          _emailController.text,
-                          _passwordController.text,
-                        );
-                        if (success) {
+                        try {
+                          UserCredential userCredential =
+                              await _auth.signInWithEmailAndPassword(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          );
                           Navigator.pushReplacementNamed(context, '/home');
-                        } else {
+                        } on FirebaseAuthException catch (e) {
+                          String message = 'An error occurred';
+                          if (e.code == 'user-not-found') {
+                            message = 'No user found for that email.';
+                          } else if (e.code == 'wrong-password') {
+                            message = 'Wrong password provided.';
+                          }
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Invalid credentials')),
+                            SnackBar(content: Text(message)),
                           );
                         }
                       }
@@ -118,7 +124,8 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 16.0),
                   Center(
                     child: TextButton(
-                      child: const Text('Sudah punya akun? Daftar sekarang'),
+                      child:
+                          const Text('Already have an account? Register now'),
                       onPressed: () {
                         Navigator.pushNamed(context, '/register');
                       },

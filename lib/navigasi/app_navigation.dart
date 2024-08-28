@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // Import provider
+import 'package:provider/provider.dart';
 import 'package:suplis_app/navigasi/theme_provider.dart';
 import 'package:suplis_app/pages/list_data_pelanggan.dart';
 import 'package:suplis_app/pages/list_notifikasi.dart';
 import 'package:suplis_app/pages/profile_petugas.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart'; // Import CurvedNavigationBar
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class AppNavigation extends StatefulWidget {
   @override
@@ -29,7 +29,8 @@ class _AppNavigationState extends State<AppNavigation> {
   @override
   Widget build(BuildContext context) {
     final themeProvider =
-        Provider.of<ThemeProvider>(context); // Use lowercase 'themeProvider'
+        Provider.of<ThemeProvider>(context); // Ensure this is correct
+
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: CurvedNavigationBar(
@@ -40,8 +41,8 @@ class _AppNavigationState extends State<AppNavigation> {
           Icon(Icons.notifications, size: 30, color: Colors.white),
           Icon(Icons.person, size: 30, color: Colors.white),
         ],
-        color: Colors.blue, // Set the background color to blue
-        buttonBackgroundColor: Colors.blue, // Set the button color to blue
+        color: Colors.blue,
+        buttonBackgroundColor: Colors.blue,
         backgroundColor: Colors.transparent,
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 800),
